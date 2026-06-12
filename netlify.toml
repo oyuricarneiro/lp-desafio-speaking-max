@@ -1,0 +1,17 @@
+# Cache headers
+# CSS/JS sem hash no nome: NUNCA immutable (evita versao antiga presa no browser)
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Imagens (sem hash): cache moderado, revalida apos 1 dia
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"

@@ -1,0 +1,18 @@
+# Netlify local
+.netlify
+
+# Sistema
+.DS_Store
+**/.DS_Store
+
+# Playwright
+.playwright-mcp/
+
+# Arquivos de processo (só local, nunca vão pro git)
+briefing.md
+copy.md
+layout.md
+persona.md
+pesquisa-mercado.md
+tom-de-voz.md
+referencias/
