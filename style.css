@@ -32,7 +32,7 @@
 
 *{ box-sizing: border-box; margin: 0; padding: 0; }
 
-html{ scroll-behavior: smooth; overflow-x: hidden; }
+html{ scroll-behavior: smooth; overflow-x: clip; }
 
 body{
   font-family: var(--font-body);
@@ -41,7 +41,7 @@ body{
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  overflow-x: clip;
   background-image:
     radial-gradient(120% 80% at 85% -10%, rgba(252,81,133,.10), transparent 55%),
     radial-gradient(90% 60% at -10% 0%, rgba(255,128,68,.08), transparent 50%);
@@ -650,6 +650,7 @@ html.js .reveal.is-in{ opacity: 1; transform: none; }
    FAIXA DE URGÊNCIA (TEMPO LIMITADO)
    ============================================================ */
 .alert-bar{
+  position: sticky; top: 0; z-index: 50;
   background: #f5333f; color: #fff; text-align: center;
   font-family: var(--font-body); font-weight: 500; font-size: .9rem; letter-spacing: .02em;
   padding: .6rem 1rem; display: flex; align-items: center; justify-content: center; gap: .5rem;
@@ -703,4 +704,45 @@ html.js .reveal.is-in{ opacity: 1; transform: none; }
   .alert-bar{ font-size: .82rem; padding: .5rem .8rem; }
   .alert-bar__extra{ display: none; }
   .offer__promise{ font-size: 1.1rem; padding: .55rem 1.1rem; }
+}
+
+/* ============================================================
+   CTA REPETIDO NAS SEÇÕES
+   ============================================================ */
+.section-cta{
+  display: flex; flex-direction: column; align-items: center; gap: .7rem;
+  text-align: center; margin-top: clamp(2.2rem, 4vw, 3.2rem);
+}
+.section-cta__note{ font-size: .9rem; font-weight: 500; color: var(--ink-soft); }
+.section-cta--light .section-cta__note{ color: rgba(253,246,236,.72); }
+/* na seção do autor o texto é alinhado à esquerda; o CTA acompanha */
+.author .section-cta{ align-items: flex-start; text-align: left; margin-top: clamp(1.8rem, 3vw, 2.4rem); }
+@media (max-width: 900px){
+  .author .section-cta{ align-items: center; text-align: center; }
+}
+@media (max-width: 560px){
+  .section-cta .btn--primary{ width: 100%; justify-content: center; }
+}
+
+/* ============================================================
+   CTA FLUTUANTE (pinado conforme rola)
+   ============================================================ */
+.float-cta{
+  position: fixed; z-index: 60; left: 12px; right: 12px; bottom: 12px;
+  display: flex; align-items: center; justify-content: center; gap: .6rem;
+  background: var(--coral); color: #fff; text-decoration: none;
+  font-family: var(--font-body); font-weight: 600; font-size: 1rem;
+  padding: .9rem 1.3rem; border-radius: 100px; min-height: 52px;
+  box-shadow: 0 14px 34px -8px rgba(252,81,133,.7), 0 4px 14px rgba(0,0,0,.18);
+  transform: translateY(160%); opacity: 0; pointer-events: none;
+  transition: transform .35s cubic-bezier(.2,.7,.2,1), opacity .35s ease, background .25s ease;
+}
+.float-cta.is-visible{ transform: none; opacity: 1; pointer-events: auto; }
+.float-cta:hover{ background: var(--coral-deep); }
+.float-cta svg{ flex: 0 0 auto; transition: transform .25s ease; }
+.float-cta:hover svg{ transform: translateX(4px); }
+.float-cta__copy{ display: flex; flex-direction: column; line-height: 1.12; text-align: left; }
+.float-cta__price{ font-weight: 500; font-size: .76rem; opacity: .9; }
+@media (min-width: 768px){
+  .float-cta{ left: auto; right: 24px; bottom: 24px; width: auto; padding: 1rem 1.5rem; }
 }
